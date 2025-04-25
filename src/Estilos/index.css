@@ -1,0 +1,7 @@
+@import "./animations.css";
+@import "./legendary.css";
+@import "./pokemon-card.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

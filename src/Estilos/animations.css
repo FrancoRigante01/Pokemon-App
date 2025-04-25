@@ -1,0 +1,75 @@
+/* Animación de resplandor dorado */
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.7);
+  }
+  100% {
+    box-shadow: 0 0 40px rgba(255, 215, 0, 0.9);
+  }
+}
+
+/* Animación de movimiento de fondo con gradiente */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Animación de pulso con resplandor amarillo */
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 30px rgba(255, 255, 0, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 50px rgba(255, 255, 0, 0.8);
+  }
+}
+
+/* Animación de brillo intenso sobre imágenes tipo sprite */
+@keyframes spriteGlow {
+  0% {
+    filter: brightness(1.9) contrast(1.9) saturate(1.7)
+      drop-shadow(0 0 20px rgba(255, 255, 0, 0.7))
+      drop-shadow(0 0 30px rgba(255, 255, 0, 0.5));
+  }
+  100% {
+    filter: brightness(2) contrast(2) saturate(1.8)
+      drop-shadow(0 0 25px rgba(255, 255, 0, 0.8))
+      drop-shadow(0 0 35px rgba(255, 255, 0, 0.6));
+  }
+}
+
+/* Animación de aparición suave desde abajo */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animación de fondo con desplazamiento para efecto de neblina o movimiento continuo */
+@keyframes foggyBackground {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Clase para fondo animado con gradiente en movimiento */
+.bg-animated {
+  background: linear-gradient(-45deg, #003366, #006699, #3399cc, #66ccff);
+  background-size: 400% 400%;
+  animation: foggyBackground 18s ease infinite;
+}

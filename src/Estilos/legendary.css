@@ -1,0 +1,38 @@
+/* Borde dorado y efecto brillante para legendarios */
+.legendary-border {
+    border: 4px solid gold;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    animation: glow 1s infinite alternate;
+  }
+  
+  /* Fondo animado tipo arcoíris para legendarios */
+  .legendary-background {
+    background: linear-gradient(45deg, #ffcc00, #ff6600, #cc00ff, #0066ff);
+    background-size: 300% 300%;
+    animation: gradientShift 3s infinite alternate;
+  }
+  
+  /* Brillo exterior suave tipo aura */
+  .legendary-glow {
+    position: relative;
+  }
+  
+  .legendary-glow::after {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    right: -8px;
+    bottom: -8px;
+    border-radius: inherit;
+    box-shadow: 0 0 40px rgba(255, 255, 0, 0.7);
+    animation: pulseGlow 1.2s infinite alternate;
+    z-index: -1;
+  }
+  
+  /* Brillo en el sprite */
+  .legendary-sprite {
+    filter: brightness(1.7) contrast(1.7) saturate(1.5) drop-shadow(0 0 15px rgba(255, 255, 0, 0.8)) drop-shadow(0 0 25px rgba(255, 255, 0, 0.6));
+    animation: spriteGlow 0.8s infinite alternate;
+  }
+  
