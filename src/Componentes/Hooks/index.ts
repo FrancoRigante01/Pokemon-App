@@ -1,2 +1,2 @@
-export { usePokemons } from "./HooksPokemons";
+export { usePokemons } from "./Pokemons/usePokemons";
 export { usePokemonDetalle } from "./HooksPokemonDetalle";

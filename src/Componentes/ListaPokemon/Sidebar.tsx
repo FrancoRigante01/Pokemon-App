@@ -1,5 +1,5 @@
 import FiltroGeneracion from "./FiltroGeneracion";
-import Equipo from "./MiEquipo/Equipo";
+import Equipo from "./Equipo";
 import { SidebarProps } from "../../interface/SidebarProps"; 
 
 // Componente Sidebar que contiene los filtros de generación y el equipo del usuario.

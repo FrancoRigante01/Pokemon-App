@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { doc, onSnapshot, setDoc } from "firebase/firestore";
-import { db } from "../../../firebase";
-import { useAuth } from "../../../context/AuthContext";
-import { useEquipo } from "../../Hooks/HooksEquipo";
+import { db } from "../../firebase";
+import { useAuth } from "../../context/AuthContext";
+import { useEquipo } from "../Hooks/Equipo/EquipoContext";
 
 export default function MiEquipo() {
   const { user } = useAuth();

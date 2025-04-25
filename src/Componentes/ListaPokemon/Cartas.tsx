@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { CartasProps } from "../../interface";
-import { useEquipo } from "../Hooks/HooksEquipo";
+import { useEquipo } from "../Hooks/Equipo/EquipoContext";
 
 const Cartas = ({ pokemon, colores }: CartasProps) => {
   // Obtener el color del tipo de Pokémon basado en el primer tipo

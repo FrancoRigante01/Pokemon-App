@@ -5,7 +5,7 @@ import "./Estilos/index.css";
 import { ListaPokemon, PokemonDetalle, Login, Register, Bienvenida } from "./Componentes";
 import MusicaFondo from "./Componentes/Comunes/MusicaFondo";
 import { AuthProvider, useAuth } from "./context/AuthContext";
-import { HooksEquipo } from "./Componentes/Hooks/HooksEquipo";
+import { HooksEquipo } from "./Componentes/Hooks/Equipo/HooksEquipo";
 
 const App = () => (
   <Routes>

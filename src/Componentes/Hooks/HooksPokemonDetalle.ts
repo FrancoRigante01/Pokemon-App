@@ -35,8 +35,7 @@ export const usePokemonDetalle = () => {
             id: data.id,
             name: data.name,
             sprites: data.sprites,
-            image:
-              data.sprites?.other?.["official-artwork"]?.front_default ??
+            image: data.sprites?.other?.["official-artwork"]?.front_default ??
               "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png",
             types: data.types || [],
             weight: data.weight || 0,
@@ -46,6 +45,7 @@ export const usePokemonDetalle = () => {
             cry: data.cry || "",
             evolution: data.evolution || [],
             isLegendary: data.isLegendary || false,
+            generacion: null
           };
 
           // Guardar los datos en el estado local

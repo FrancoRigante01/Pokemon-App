@@ -31,5 +31,5 @@ export interface Pokemon {
   stats: Stat[];
   evolution: Evolution[];
   sprites: Sprites;
-  generacion: number;
+  generacion: number | null;
 }
