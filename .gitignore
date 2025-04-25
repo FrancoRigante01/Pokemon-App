@@ -28,6 +28,8 @@ yarn-error.log*
 # Archivos específicos de Firebase (si tienes claves o configuraciones locales)
 firebase.json
 .firebaserc
+src/firebase.ts
+
 
 # Archivos generados por el sistema
 npm-debug.log*
