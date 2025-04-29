@@ -1,15 +1,6 @@
 import { Pokemon } from "../../interface/pokemon";
 import Fuse from "fuse.js";
 
-/**
- * Filtra una lista de Pokémon según tipos, generación y búsqueda por nombre.
- * @param pokemons Lista de todos los Pokémon
- * @param tiposSeleccionados Tipos de Pokémon seleccionados (ej. ['fire', 'flying'])
- * @param generacionSeleccionada Número de generación seleccionada (1 a 9) o null
- * @param searchQuery Texto ingresado para buscar por nombre
- * @param fuse Instancia de Fuse.js para búsqueda difusa
- * @returns Lista de Pokémon que cumplen todos los filtros
- */
 export const filtrarPokemons = (
   pokemons: Pokemon[],
   tiposSeleccionados: string[],

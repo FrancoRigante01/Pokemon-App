@@ -1,9 +1,5 @@
-import React, { FC, useState, useEffect } from "react";
-
-export interface BarraBusquedaProps {
-  inputBusqueda: string;
-  setInputBusqueda: React.Dispatch<React.SetStateAction<string>>;
-}
+import { FC, useState, useEffect } from "react";
+import { BarraBusquedaProps } from "../../interface/BarraBusqueda";
 
 const BarraBusqueda: FC<BarraBusquedaProps> = ({ inputBusqueda, setInputBusqueda }) => {
   const [value, setValue] = useState(inputBusqueda);

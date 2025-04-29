@@ -12,17 +12,9 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../firebase";
 import { Pokemon } from "../../../interface/pokemon";
+import { FirestoreResult } from "../../../interface/hooks/FirestoreResult";
 
 const PAGE_LIMIT = 12;
-
-interface FirestoreResult {
-  pokemons: Pokemon[];
-  loading: boolean;
-  moreLoading: boolean;
-  hasMore: boolean;
-  fetchInitial: () => void;
-  fetchMore: () => void;
-}
 
 export const useFirestorePokemons = (
   generacion: number | null,
