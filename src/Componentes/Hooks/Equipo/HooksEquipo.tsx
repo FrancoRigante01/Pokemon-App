@@ -1,36 +1,65 @@
-// HooksEquipo.tsx
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import { EquipoContext } from "./EquipoContext";
 import { useEquipoFirestore } from "./useEquipoFirestore";
 import { Pokemon } from "../../../interface/pokemon";
+import Loader from "../../Comunes/Loader";
 
-export const HooksEquipo = ({ children }: { children: React.ReactNode }) => {
+/**
+ * Proveedor de contexto de Equipo Pokémon
+ */
+export const EquipoProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { equipo, setEquipo, loading } = useEquipoFirestore();
 
-  const setEquipoCompleto = (nuevoEquipo: Pokemon[]) => setEquipo(nuevoEquipo);
+  // Establece un equipo completo (reemplaza todos los miembros)
+  const setEquipoCompleto = useCallback(
+    (nuevoEquipo: Pokemon[]) => setEquipo(nuevoEquipo),
+    [setEquipo]
+  );
 
-  const setEquipoInicial = (equipoInicial: Pokemon[]) => setEquipo(equipoInicial);
+  // Establece un equipo inicial (idéntico a setEquipoCompleto)
+  const setEquipoInicial = useCallback(
+    (equipoInicial: Pokemon[]) => setEquipo(equipoInicial),
+    [setEquipo]
+  );
 
-  const agregarAPequipo = (pokemon: Pokemon) => {
-    setEquipo((prev) => {
-      if (prev.length >= 6 || prev.some((p) => p.id === pokemon.id)) return prev;
-      return [...prev, pokemon];
-    });
-  };
+  // Agrega un Pokémon si no está y hay espacio
+  const agregarAPequipo = useCallback(
+    (pokemon: Pokemon) => {
+      setEquipo(prev =>
+        prev.length >= 6 || prev.some(p => p.id === pokemon.id)
+          ? prev
+          : [...prev, pokemon]
+      );
+    },
+    [setEquipo]
+  );
 
-  const quitarDeEquipo = (id: number) => setEquipo((prev) => prev.filter((p) => p.id !== id));
+  // Quita un Pokémon por su ID
+  const quitarDeEquipo = useCallback(
+    (id: number) => setEquipo(prev => prev.filter(p => p.id !== id)),
+    [setEquipo]
+  );
+
+  // Memoizar value para evitar re-renderes innecesarios
+  const contextValue = useMemo(
+    () => ({
+      equipo,
+      agregarAPequipo,
+      quitarDeEquipo,
+      setEquipoInicial,
+      setEquipoCompleto,
+      loading,
+    }),
+    [equipo, agregarAPequipo, quitarDeEquipo, setEquipoInicial, setEquipoCompleto, loading]
+  );
+
+  // Mostrar loader mientras se sincroniza con Firestore
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
-    <EquipoContext.Provider
-      value={{
-        equipo,
-        agregarAPequipo,
-        quitarDeEquipo,
-        setEquipoInicial,
-        setEquipoCompleto,
-        loading,
-      }}
-    >
+    <EquipoContext.Provider value={contextValue}>
       {children}
     </EquipoContext.Provider>
   );

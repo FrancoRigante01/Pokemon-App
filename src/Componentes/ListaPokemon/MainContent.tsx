@@ -3,7 +3,7 @@ import { MainContentProps } from "../../interface/MainContent";
 import BarraBusqueda from "./BarraBusqueda";
 import FiltroTipos from "./FiltroTipos";
 import Cartas from "./Cartas";
-import Loader from "./Loader";
+import Loader from "../Comunes/Loader";
 import colores from "../Comunes/Colores";
 
 const MainContent: FC<MainContentProps> = ({
