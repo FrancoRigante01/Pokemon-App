@@ -1,12 +1,70 @@
-# React + Vite
+# Pokémon App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+¡Bienvenido a **Pokémon App**! Esta aplicación web te permite explorar, buscar y gestionar tu propio equipo Pokémon, con una experiencia moderna y visualmente atractiva.
 
-Currently, two official plugins are available:
+## 🌐 Demo en línea
+¿Quieres probar la app sin instalar nada? Accede aquí:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+👉 [pokemon-app-70087.web.app](https://pokemon-app-70087.web.app/)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🖼️ Capturas de pantalla
+
+<p align="center">
+  <img src="public/captura1.png" alt="Captura 1" width="350" />
+  <img src="public/captura2.png" alt="Captura 2" width="350" />
+  <img src="public/captura3.png" alt="Captura 3" width="350" />
+</p>
+
+---
+
+## 🚀 Características principales
+- 🔍 **Búsqueda avanzada** de Pokémon por nombre, tipo y generación
+- 📋 **Listado interactivo** con paginación e infinite scroll
+- 🏆 **Gestión de equipo Pokémon**: agrega, quita y sincroniza tu equipo en la nube
+- 🔒 **Autenticación de usuarios** (registro, login y logout)
+- 🎵 **Música de fondo** y efectos visuales animados
+- ⚡ **Interfaz responsiva** y diseño con Tailwind CSS
+- 🔥 **Integración con Firebase** para datos y autenticación
+
+## 🛠️ Tecnologías utilizadas
+- React + TypeScript
+- Firebase (Auth & Firestore)
+- Vite
+- Tailwind CSS
+
+## 📦 Instalación
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/FrancoRigante01/Pokemon-App.git
+   ```
+2. Instala las dependencias:
+   ```bash
+   npm install
+   ```
+3. Configura tu archivo `.env` con las credenciales de Firebase:
+   ```env
+   VITE_FIREBASE_API_KEY=tu_api_key
+   VITE_FIREBASE_AUTH_DOMAIN=tu_auth_domain
+   VITE_FIREBASE_PROJECT_ID=tu_project_id
+   VITE_FIREBASE_STORAGE_BUCKET=tu_storage_bucket
+   VITE_FIREBASE_MESSAGING_SENDER_ID=tu_messaging_sender_id
+   VITE_FIREBASE_APP_ID=tu_app_id
+   ```
+4. Inicia la app:
+   ```bash
+   npm run dev
+   ```
+
+## ✨ Uso
+- Regístrate o inicia sesión para guardar tu equipo Pokémon.
+- Explora la lista de Pokémon, filtra por generación o tipo, y agrega tus favoritos a tu equipo.
+- Disfruta de la música de fondo y la interfaz animada.
+
+## 📚 Créditos
+- Imágenes y datos de Pokémon obtenidos de [PokéAPI](https://pokeapi.co/)
+- Iconos y recursos visuales de [Pokémon](https://www.pokemon.com/)
+
+## 📝 Licencia
+Este proyecto es de uso educativo y personal. No está afiliado ni respaldado por The Pokémon Company.
