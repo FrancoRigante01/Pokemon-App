@@ -29,6 +29,7 @@ yarn-error.log*
 firebase.json
 .firebaserc
 src/firebase.ts
+Scripts/actualizarCries.mjs
 
 
 # Archivos generados por el sistema
