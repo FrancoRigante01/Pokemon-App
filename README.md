@@ -17,7 +17,6 @@
   <img src="public/captura3.png" alt="Captura 3" width="350" />
 </p>
 
----
 
 ## 🚀 Características principales
 - 🔍 **Búsqueda avanzada** de Pokémon por nombre, tipo y generación
@@ -34,28 +33,6 @@
 - Vite
 - Tailwind CSS
 
-## 📦 Instalación
-1. Clona el repositorio:
-   ```bash
-   git clone https://github.com/FrancoRigante01/Pokemon-App.git
-   ```
-2. Instala las dependencias:
-   ```bash
-   npm install
-   ```
-3. Configura tu archivo `.env` con las credenciales de Firebase:
-   ```env
-   VITE_FIREBASE_API_KEY=tu_api_key
-   VITE_FIREBASE_AUTH_DOMAIN=tu_auth_domain
-   VITE_FIREBASE_PROJECT_ID=tu_project_id
-   VITE_FIREBASE_STORAGE_BUCKET=tu_storage_bucket
-   VITE_FIREBASE_MESSAGING_SENDER_ID=tu_messaging_sender_id
-   VITE_FIREBASE_APP_ID=tu_app_id
-   ```
-4. Inicia la app:
-   ```bash
-   npm run dev
-   ```
 
 ## ✨ Uso
 - Regístrate o inicia sesión para guardar tu equipo Pokémon.
