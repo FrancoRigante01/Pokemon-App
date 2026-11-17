@@ -29,21 +29,11 @@ yarn-error.log*
 .firebase/
 Scripts/actualizarCries.mjs
 
-
-# Archivos generados por el sistema
-npm-debug.log*
-yarn-error.log*
-
 # Directorios o archivos generados por procesos locales
-/dist/
 /coverage/
 
 # Archivos de configuración de Next.js, si aplican
 .next/
-
-# Otros archivos específicos de IDEs (por ejemplo, Visual Studio Code, IntelliJ, etc.)
-.vscode/
-.idea/
 
 # Configuración de archivos personales
 *.log
