@@ -26,9 +26,7 @@ yarn-error.log*
 .env.production.local
 
 # Archivos específicos de Firebase (si tienes claves o configuraciones locales)
-firebase.json
-.firebaserc
-src/firebase.ts
+.firebase/
 Scripts/actualizarCries.mjs
 
 
