@@ -34,6 +34,46 @@
 - Tailwind CSS
 
 
+## 💻 Ejecución en local
+
+### Requisitos
+- [Node.js](https://nodejs.org/) (versión 18 o superior) y npm
+- Un proyecto de Firebase con Authentication y Firestore habilitados
+
+### Pasos
+1. Clona el repositorio e ingresa a la carpeta:
+   ```bash
+   git clone <url-del-repositorio>
+   cd Pokemon-App
+   ```
+
+2. Instala las dependencias:
+   ```bash
+   npm install
+   ```
+
+3. Crea un archivo `.env.local` en la raíz del proyecto con las credenciales de tu proyecto de Firebase (podés encontrarlas en *Configuración del proyecto > Tus apps > Configuración del SDK*):
+   ```env
+   VITE_FIREBASE_API_KEY=tu_api_key
+   VITE_FIREBASE_AUTH_DOMAIN=tu_auth_domain
+   VITE_FIREBASE_PROJECT_ID=tu_project_id
+   VITE_FIREBASE_STORAGE_BUCKET=tu_storage_bucket
+   VITE_FIREBASE_MESSAGING_SENDER_ID=tu_messaging_sender_id
+   VITE_FIREBASE_APP_ID=tu_app_id
+   ```
+
+4. Inicia el servidor de desarrollo:
+   ```bash
+   npm run dev
+   ```
+   Luego abrí en el navegador la URL que muestra la consola (por defecto `http://localhost:5173`).
+
+### Otros comandos
+- `npm run build`: genera la versión de producción en `dist/`.
+- `npm run preview`: sirve localmente la versión generada con `build`.
+- `npm run lint`: ejecuta ESLint sobre el proyecto.
+
+
 ## ✨ Uso
 - Regístrate o inicia sesión para guardar tu equipo Pokémon.
 - Explora la lista de Pokémon, filtra por generación o tipo, y agrega tus favoritos a tu equipo.
