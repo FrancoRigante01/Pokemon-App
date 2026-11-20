@@ -1,70 +1,9 @@
-import { useEffect, useState } from "react";
-import { doc, onSnapshot, setDoc } from "firebase/firestore";
-import { db } from "../../firebase";
-import { useAuth } from "../../context/AuthContext";
 import { useEquipo } from "../Hooks/Equipo/EquipoContext";
 
+const fallbackURL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png";
+
 export default function MiEquipo() {
-  const { user } = useAuth();
-  const { equipo, quitarDeEquipo, setEquipoCompleto } = useEquipo();
-  const [pokemons] = useState<any[]>([]);
-  const [idsCargados, setIdsCargados] = useState<number[]>([]);
-  const [equipoCargado, setEquipoCargado] = useState(false);
-
-  // Resetear estado cuando cambia el usuario
-  useEffect(() => {
-    setEquipoCargado(false);
-    setIdsCargados([]);
-  }, [user]);
-
-  // Escuchar cambios del equipo en Firestore (onSnapshot)
-  useEffect(() => {
-    if (!user || pokemons.length === 0 || equipoCargado) return;
-
-    const ref = doc(db, "users", user.uid);
-
-    const unsubscribe = onSnapshot(ref, (docSnap) => {
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        const ids: number[] = data.team || [];
-
-        // Filtrar solo los que están en el JSON local
-        const pokemonsEquipo = pokemons.filter(
-          (p) => ids.includes(p.id)
-        );
-
-        // Evitar sobrescribir si ya están en el equipo
-        const equipoActualIds = equipo.map(p => p.id).sort().join(",");
-        const nuevosIds = pokemonsEquipo.map(p => p.id).sort().join(",");
-
-        if (equipoActualIds !== nuevosIds) {
-          console.log("Cargando equipo desde Firestore:", pokemonsEquipo);
-          setEquipoCompleto(pokemonsEquipo);
-          setIdsCargados(ids);
-        }
-
-        setEquipoCargado(true);
-      }
-    });
-
-    return () => unsubscribe(); // Limpiar suscripción
-  }, [user, pokemons]);
-
-  // Guardar en Firestore cuando el equipo cambie
-  useEffect(() => {
-    if (!user || !equipoCargado) return;
-
-    const guardarEquipo = async () => {
-      const ids = equipo.map(p => p.id);
-      if (JSON.stringify(ids) !== JSON.stringify(idsCargados)) {
-        const ref = doc(db, "users", user.uid);
-        await setDoc(ref, { team: ids }, { merge: true });
-        setIdsCargados(ids);
-      }
-    };
-
-    guardarEquipo();
-  }, [equipo, user, equipoCargado]);
+  const { equipo, quitarDeEquipo } = useEquipo();
 
   return (
     <div className="p-4 bg-gray-800 text-white rounded-2xl shadow-lg w-full">
@@ -80,7 +19,7 @@ export default function MiEquipo() {
               {pokemon ? (
                 <div className="cursor-pointer hover:text-red-400" onClick={() => quitarDeEquipo(pokemon.id)}>
                   <img
-                    src={pokemon.sprites.front_default || "/path/to/default-image.png"}
+                    src={pokemon.sprites?.front_default || fallbackURL}
                     alt={`Pokémon ${pokemon.id}`}
                     className="w-16 h-16 rounded-full"
                   />
