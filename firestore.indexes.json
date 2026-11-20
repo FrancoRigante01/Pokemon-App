@@ -1,0 +1,55 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "pokemons",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "generacion", "order": "ASCENDING" },
+        { "fieldPath": "name", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "pokemons",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "types", "arrayConfig": "CONTAINS" },
+        { "fieldPath": "name", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "pokemons",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "generacion", "order": "ASCENDING" },
+        { "fieldPath": "types", "arrayConfig": "CONTAINS" },
+        { "fieldPath": "name", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "pokemons",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "generacion", "order": "ASCENDING" },
+        { "fieldPath": "id", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "pokemons",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "types", "arrayConfig": "CONTAINS" },
+        { "fieldPath": "id", "order": "ASCENDING" }
+      ]
+    },
+    {
+      "collectionGroup": "pokemons",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "generacion", "order": "ASCENDING" },
+        { "fieldPath": "types", "arrayConfig": "CONTAINS" },
+        { "fieldPath": "id", "order": "ASCENDING" }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}

@@ -63,7 +63,7 @@ export const useFirestorePokemons = (
 
     let q: Query<DocumentData>;
     if (searchQuery) {
-      // Búsqueda por prefijo de nombre
+      // Búsqueda por prefijo de nombre, respetando generación y tipos
       q = query(
         baseRef,
         orderBy("name"),
@@ -71,6 +71,7 @@ export const useFirestorePokemons = (
         endAt(searchQuery.toLowerCase() + "\uf8ff"),
         limit(PAGE_LIMIT)
       );
+      q = buildQuery(q);
     } else {
       // Paginación normal por ID con filtros
       q = query(
