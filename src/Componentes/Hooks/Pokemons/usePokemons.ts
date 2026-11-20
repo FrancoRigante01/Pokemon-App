@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef, useEffect } from "react";
+import { useState, useMemo, useRef } from "react";
 import { useDebounce } from "./useDebounce";
 import { useInfiniteScroll } from "./useInfiniteScroll";
 import { useFirestorePokemons } from "./useFirestorePokemons";
@@ -12,20 +12,15 @@ export const usePokemons = () => {
   const [inputSearch, setInputSearch] = useState("");
   const searchQuery = useDebounce(inputSearch);
 
-  // Obtención de datos desde Firestore filtrando por generación y tipos seleccionados
+  // Obtención de datos desde Firestore filtrando por generación, tipos y búsqueda
+  // (useFirestorePokemons ya recarga cuando cambian esos valores)
   const {
     pokemons,
     loading,
     moreLoading: cargandoMas,
     hasMore,
     fetchMore,
-    fetchInitial,
   } = useFirestorePokemons(generacion, tiposSeleccionados, searchQuery);
-
-  // Volver a cargar la lista cuando cambian generación o tipos seleccionados
-  useEffect(() => {
-    fetchInitial();
-  }, [generacion, tiposSeleccionados, fetchInitial]);
 
   // Referencia para infinite scroll
   const finListaRef = useRef<HTMLDivElement>(null);
