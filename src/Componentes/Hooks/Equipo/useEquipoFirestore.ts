@@ -11,12 +11,12 @@ export const useEquipoFirestore = () => {
   const { user } = useAuth();
   const initialLoadRef = useRef(true);
 
+  const uid = user?.uid || null;
   const emailId = user?.email?.replace(/\./g, "_") || null;
-  const uidId = user?.uid || null;
 
   // Efecto de carga inicial y migración
   useEffect(() => {
-    if (!user) {
+    if (!uid) {
       setLoading(false);
       setEquipo([]);
       initialLoadRef.current = true;
@@ -27,30 +27,35 @@ export const useEquipoFirestore = () => {
     setLoading(true);
     setEquipo([]);
 
-    const targetId = emailId!;
-    const docRef = doc(db, "equipos", targetId);
+    const docRef = doc(db, "equipos", uid);
 
     const unsubscribe = onSnapshot(
       docRef,
       async (snap) => {
-        if (snap.exists()) {
-          const data = snap.data();
-          setEquipo((data.equipo as Pokemon[]) || []);
-        } else if (uidId) {
-          const oldRef = doc(db, "equipos", uidId);
-          const oldSnap = await getDoc(oldRef);
-          if (oldSnap.exists()) {
-            const migrated = (oldSnap.data().equipo as Pokemon[]) || [];
-            await setDoc(docRef, { equipo: migrated, uid: uidId }, { merge: true });
-            setEquipo(migrated);
+        try {
+          if (snap.exists()) {
+            const data = snap.data();
+            setEquipo((data.equipo as Pokemon[]) || []);
+          } else if (emailId) {
+            // Migración desde el documento antiguo indexado por email
+            const legacyRef = doc(db, "equipos", emailId);
+            const legacySnap = await getDoc(legacyRef);
+            if (legacySnap.exists() && legacySnap.data().uid === uid) {
+              const migrated = (legacySnap.data().equipo as Pokemon[]) || [];
+              await setDoc(docRef, { equipo: migrated, uid }, { merge: true });
+              setEquipo(migrated);
+            } else {
+              setEquipo([]);
+            }
           } else {
             setEquipo([]);
           }
-        } else {
-          setEquipo([]);
+        } catch (error) {
+          console.error("Error al migrar equipo:", error);
+        } finally {
+          setLoading(false);
+          initialLoadRef.current = false;
         }
-        setLoading(false);
-        initialLoadRef.current = false;
       },
       (error) => {
         console.error("Error al sincronizar equipo:", error);
@@ -60,17 +65,17 @@ export const useEquipoFirestore = () => {
     );
 
     return () => unsubscribe();
-  }, [emailId, uidId, user]);
+  }, [uid, emailId]);
 
   // Efecto para guardar equipo en Firestore
   useEffect(() => {
-    if (!user || !emailId || loading || initialLoadRef.current) return;
+    if (!uid || loading || initialLoadRef.current) return;
 
-    const ref = doc(db, "equipos", emailId);
-    setDoc(ref, { equipo, uid: user.uid }, { merge: true }).catch((error) =>
+    const ref = doc(db, "equipos", uid);
+    setDoc(ref, { equipo, uid }, { merge: true }).catch((error) =>
       console.error("Error al guardar equipo:", error)
     );
-  }, [equipo, emailId, user, loading]);
+  }, [equipo, uid, loading]);
 
   return { equipo, setEquipo, loading };
 };

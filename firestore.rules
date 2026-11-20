@@ -1,0 +1,37 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Equipos: el ID del documento es el uid del dueño
+    match /equipos/{docId} {
+      allow read: if request.auth != null
+                  && (resource == null || resource.data.uid == request.auth.uid);
+      allow create: if request.auth != null
+                    && docId == request.auth.uid
+                    && request.resource.data.uid == request.auth.uid;
+      allow update: if request.auth != null
+                    && resource.data.uid == request.auth.uid
+                    && request.resource.data.uid == request.auth.uid;
+      allow delete: if false;
+    }
+
+    // Usuarios: el ID del documento es el uid del dueño
+    match /users/{docId} {
+      allow read: if request.auth != null
+                  && (resource == null || resource.data.uid == request.auth.uid);
+      allow create: if request.auth != null
+                    && docId == request.auth.uid
+                    && request.resource.data.uid == request.auth.uid;
+      allow update: if request.auth != null
+                    && resource.data.uid == request.auth.uid
+                    && request.resource.data.uid == request.auth.uid;
+      allow delete: if false;
+    }
+
+    // Catálogo: lectura para autenticados, sin escritura desde el cliente
+    match /pokemons/{pokemonId} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+  }
+}

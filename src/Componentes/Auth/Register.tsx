@@ -19,11 +19,8 @@ const Register = () => {
       const userCredential = await register(email, password);
       const user = userCredential.user;
 
-      // Sanitizar email para usar como ID de documento
-      const sanitizedEmail = email.replace(/\./g, "_");
-
-      // Guardar datos en Firestore en colección 'users' con el email como ID
-      await setDoc(doc(db, "users", sanitizedEmail), {
+      // Guardar datos en Firestore en colección 'users' con el uid como ID
+      await setDoc(doc(db, "users", user.uid), {
         uid: user.uid,
         email: user.email,
         createdAt: new Date(),
