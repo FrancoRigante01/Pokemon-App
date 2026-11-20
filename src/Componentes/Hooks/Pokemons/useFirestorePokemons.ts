@@ -96,18 +96,29 @@ export const useFirestorePokemons = (
     }
   }, [buildQuery, searchQuery]);
 
-  // Función para cargar más páginas (solo cuando no hay búsqueda)
+  // Función para cargar más páginas (por nombre si hay búsqueda, por id si no)
   const fetchMore = useCallback(async () => {
-    if (moreLoading || !hasMore || !lastCursor || searchQuery) return;
+    if (moreLoading || !hasMore || !lastCursor) return;
     setMoreLoading(true);
     const baseRef = collection(db, "pokemons");
 
-    let q: Query<DocumentData> = query(
-      baseRef,
-      orderBy("id"),
-      startAfter(lastCursor),
-      limit(PAGE_LIMIT)
-    );
+    let q: Query<DocumentData>;
+    if (searchQuery) {
+      q = query(
+        baseRef,
+        orderBy("name"),
+        startAfter(lastCursor),
+        endAt(searchQuery.toLowerCase() + "\uf8ff"),
+        limit(PAGE_LIMIT)
+      );
+    } else {
+      q = query(
+        baseRef,
+        orderBy("id"),
+        startAfter(lastCursor),
+        limit(PAGE_LIMIT)
+      );
+    }
     q = buildQuery(q);
 
     try {

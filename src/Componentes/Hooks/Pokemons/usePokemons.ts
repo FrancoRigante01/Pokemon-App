@@ -29,7 +29,7 @@ export const usePokemons = () => {
 
   // Referencia para infinite scroll
   const finListaRef = useRef<HTMLDivElement>(null);
-  useInfiniteScroll(finListaRef, fetchMore, hasMore && !searchQuery);
+  useInfiniteScroll(finListaRef, fetchMore, hasMore);
 
   // Aplicar búsqueda normal (includes)
   const pokemonsMostrados = useMemo(() => {
