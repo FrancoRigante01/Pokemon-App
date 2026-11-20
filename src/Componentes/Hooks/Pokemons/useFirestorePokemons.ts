@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import {
   collection,
   getDocs,
@@ -35,6 +35,8 @@ export const useFirestorePokemons = (
   const [moreLoading, setMoreLoading] = useState(false);
   const [lastCursor, setLastCursor] = useState<any>(null);
   const [hasMore, setHasMore] = useState(true);
+  // Identifica la carga actual: respuestas de cargas anteriores se descartan
+  const requestIdRef = useRef(0);
 
   // Construye la query con filtros de generación, tipos, y opcional búsqueda por nombre
   const buildQuery = useCallback(
@@ -56,7 +58,9 @@ export const useFirestorePokemons = (
 
   // Función para obtener la primera página o resultados de búsqueda
   const fetchInitial = useCallback(async () => {
+    const requestId = ++requestIdRef.current;
     setLoading(true);
+    setMoreLoading(false);
     setPokemons([]);
     setLastCursor(null);
     const baseRef = collection(db, "pokemons");
@@ -84,6 +88,7 @@ export const useFirestorePokemons = (
 
     try {
       const snap = await getDocs(q);
+      if (requestId !== requestIdRef.current) return;
       const data = snap.docs.map((d) => ({ ...(d.data() as Pokemon), id: parseInt(d.id) }));
       setPokemons(data);
       // Cursor para paginación: usa último doc
@@ -92,13 +97,14 @@ export const useFirestorePokemons = (
     } catch (err) {
       console.error("Error en carga inicial:", err);
     } finally {
-      setLoading(false);
+      if (requestId === requestIdRef.current) setLoading(false);
     }
   }, [buildQuery, searchQuery]);
 
   // Función para cargar más páginas (por nombre si hay búsqueda, por id si no)
   const fetchMore = useCallback(async () => {
     if (moreLoading || !hasMore || !lastCursor) return;
+    const requestId = requestIdRef.current;
     setMoreLoading(true);
     const baseRef = collection(db, "pokemons");
 
@@ -123,6 +129,7 @@ export const useFirestorePokemons = (
 
     try {
       const snap = await getDocs(q);
+      if (requestId !== requestIdRef.current) return;
       const data = snap.docs.map((d) => ({ ...(d.data() as Pokemon), id: parseInt(d.id) }));
       setPokemons((prev) => [...prev, ...data]);
       setLastCursor(snap.docs[snap.docs.length - 1] || lastCursor);
@@ -130,7 +137,7 @@ export const useFirestorePokemons = (
     } catch (err) {
       console.error("Error paginación:", err);
     } finally {
-      setMoreLoading(false);
+      if (requestId === requestIdRef.current) setMoreLoading(false);
     }
   }, [buildQuery, hasMore, lastCursor, moreLoading, searchQuery]);
 
